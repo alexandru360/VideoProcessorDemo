@@ -6,7 +6,7 @@ First make sure you have the ffmpeg.exe in api\VideoProcessingTools always copy 
 
 Do the below
 
-####### API - DotNet Core
+#### API - DotNet Core
 ````
 cd into Api
 dotnet tool install --global dotnet-ef
@@ -15,7 +15,7 @@ dotnet restore
 dotnet run
 ````
 
-####### View - Angular 10
+#### View - Angular 10
 ````
 npm i -g yarn npm
 cd into view
