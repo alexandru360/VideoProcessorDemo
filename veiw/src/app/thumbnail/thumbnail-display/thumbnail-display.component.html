@@ -1,0 +1,11 @@
+<div class="centered">
+  <button class="button" (click)="onClickLoadImg()">Click to load thumbnail</button>
+  <br/>
+  <br/>
+  <div class="div-img-wrapper">
+    <div class="div-img-loading" *ngIf="showLoadingImg">
+      <img alt="thumbnail" src="assets/200.gif" class="img-layout"/>
+    </div>
+    <img alt="thumbnail" [src]="thumbImage" class="img-layout" *ngIf="showThumbImg"/>
+  </div>
+</div>
