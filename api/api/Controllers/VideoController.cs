@@ -1,44 +1,75 @@
-﻿using api.Helpers;
-using api.Services;
+﻿using api.Services;
 using DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
-using VideoProcessingTools;
 
 namespace api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ThumbnailController : ControllerBase
+    public class VideoToolsController : ControllerBase
     {
 
-        private readonly ILogger<ThumbnailController> _logger;
+        private readonly ILogger<VideoToolsController> _logger;
         private IVideoService _videoService;
 
-        public ThumbnailController(
+        public VideoToolsController(
             IVideoService VideoService,
-            ILogger<ThumbnailController> logger)
+            ILogger<VideoToolsController> logger)
         {
             _logger = logger;
             _videoService = VideoService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("health-check")]
+        public IActionResult HealthCheck()
+        {
+            return Ok("VideoTools -> UP");
+        }
+
+        [HttpPost("hd-264")]
+        public IActionResult HdFile([FromBody] string content)
         {
             try
             {
-                ThumbnailDto thumbnail = await _videoService.Create();
-                //return File(thumbnail.FileContents, Tools.GetContentType(thumbnail.FilePath), thumbnail.FileName);
-                return Ok(thumbnail);
+                return Ok("hd-264");
             }
             catch (Exception ex)
             {
-                return StatusCode(500);
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("thumbnails")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Thumbnails([FromBody] string content)
+        {
+            try
+            {
+                if (content.Length == 0)
+                    content = string.Empty;
+                var ret = await _videoService.Create(content);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("hls-files")]
+        public async Task<IActionResult> HlsFiles([FromBody] string content)
+        {
+            try
+            {
+                return Ok("hls-files");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
         }
     }

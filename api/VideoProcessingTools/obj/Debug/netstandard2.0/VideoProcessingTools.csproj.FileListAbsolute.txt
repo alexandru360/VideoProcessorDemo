@@ -28,3 +28,6 @@ D:\dev\VideoProcessorDemo\api\VideoProcessingTools\obj\Debug\netstandard2.0\Vide
 D:\dev\VideoProcessorDemo\api\VideoProcessingTools\obj\Debug\netstandard2.0\VideoProcessingTools.csproj.CoreCompileInputs.cache
 D:\dev\VideoProcessorDemo\api\VideoProcessingTools\obj\Debug\netstandard2.0\VideoProcessingTools.dll
 D:\dev\VideoProcessorDemo\api\VideoProcessingTools\obj\Debug\netstandard2.0\VideoProcessingTools.pdb
+D:\dev\VideoProcessorDemo\api\VideoProcessingTools\bin\Debug\netstandard2.0\DTO.dll
+D:\dev\VideoProcessorDemo\api\VideoProcessingTools\bin\Debug\netstandard2.0\DTO.pdb
+D:\dev\VideoProcessorDemo\api\VideoProcessingTools\obj\Debug\netstandard2.0\VideoProcessingTools.csproj.CopyComplete

@@ -5,6 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="db\" />
 		<Folder Include="Migrations\" />
 		<Folder Include="Sample\" />
 	</ItemGroup>
@@ -27,6 +28,9 @@
 
 	<ItemGroup>
 	  <None Update="Sample\4K-60FPS-1-min.mp4">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Sample\4K-video-30-secs.mp4">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

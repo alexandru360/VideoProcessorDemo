@@ -13,7 +13,7 @@ namespace api.Services
     public interface IVideoService
     {
         Thumbnail GetById(int id);
-        Task<ThumbnailDto> Create();
+        Task<List<ThumbnailDto>> Create(string urlFile);
         void Delete(int id);
     }
 
@@ -26,35 +26,59 @@ namespace api.Services
             _context = context;
         }
 
-        public async Task<ThumbnailDto> Create()
+        public async Task<List<ThumbnailDto>> Create(string urlFile)
         {
-            var path = VideoTool.generateThumb(string.Empty);
+            List<ThumbnailDto> oRet = new List<ThumbnailDto>();
+            Thumbnail thumbnail;
+            var oThumb = VideoTool.GenerateThumbnails(urlFile);
 
+            //Read the file and push contents to list
             var memory = new MemoryStream();
-            var ret = new ThumbnailDto();
-
+            var thumb = new ThumbnailDto();
+            var path = oThumb.ThumbnailOnePath;
             using (var stream = new FileStream(path, FileMode.Open))
             {
                 await stream.CopyToAsync(memory);
-
                 memory.Position = 0;
-                var fileName = Path.GetFileName(path);
-                Thumbnail thumbnail = new Thumbnail();
-                thumbnail.FileName = fileName;
-                thumbnail.FileContents = memory.ToArray();
-                _context.Thumbnails.Add(thumbnail);
-                _context.SaveChanges();
-
-
-
-                ret.FileName = fileName;
-                ret.FilePath = path;
-                //ret.FileContents = Tools.Base64Encode(memory.ToArray().ToString());
-                ret.FileContents = Convert.ToBase64String(memory.ToArray()); ;
-                
+                thumb.FileName = Path.GetFileName(path);
+                thumb.FileContents = Convert.ToBase64String(memory.ToArray());
             }
 
-            return ret;
+            thumbnail = new Thumbnail()
+            {
+                FileName = thumb.FileName,
+                FileContents = memory.ToArray()
+            };
+            _context.Thumbnails.Add(thumbnail);
+            _context.SaveChanges();
+
+            thumb.Id = thumbnail.Id;
+            oRet.Add(thumb);
+
+            //Read the file and push contents to list
+            memory = new MemoryStream();
+            thumb = new ThumbnailDto();
+            path = oThumb.ThumbnailTwoPath;
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+                memory.Position = 0;
+                thumb.FileName = Path.GetFileName(path);
+                thumb.FileContents = Convert.ToBase64String(memory.ToArray());
+            }
+
+            thumbnail = new Thumbnail()
+            {
+                FileName = thumb.FileName,
+                FileContents = memory.ToArray()
+            };
+            _context.Thumbnails.Add(thumbnail);
+            _context.SaveChanges();
+
+            thumb.Id = thumbnail.Id;
+            oRet.Add(thumb);
+
+            return oRet;
         }
 
         public void Delete(int id)

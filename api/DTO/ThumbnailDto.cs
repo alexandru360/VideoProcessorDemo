@@ -12,7 +12,5 @@ namespace DTO
         public string FileName { get; set; }
         [DataMember]
         public string FileContents { get; set; }
-        [DataMember]
-        public string FilePath { get; set; }
     }
 }

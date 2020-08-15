@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "fwzIlIpxZAlQx/qpjgIeVT79r4mAcAkdltG5w9O/qbO+4Smk46NeGSJA4ohQrai+SobmcG/qBKZjfK8ML+XXqw==",
+  "dgSpecHash": "4RLDkDLLI68OITY5lMjPhD8QnUmqggYzlTkqKnIW+iwsY3LdonpntEzGEHjf+Ju28UVhRnIiiO5RDLsSqWgITg==",
   "success": true,
   "projectFilePath": "D:\\dev\\VideoProcessorDemo\\api\\DTO\\DTO.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Alex\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Alex\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
