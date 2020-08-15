@@ -1,6 +1,12 @@
 
 /view/node_modules/
-/api/api/bin/
 /view/.idea/
 /.idea/
+/api/api/bin/
 /api/api/obj/
+/api/DTO/obj/
+/api/DTO/bin/
+/api/VideoProcessingTools/bin/
+/api/VideoProcessingTools/obj/
+/api/DbEntities/bin/
+/api/DbEntities/obj/
