@@ -6,8 +6,6 @@
 
 	<ItemGroup>
 		<Folder Include="db\" />
-		<Folder Include="Migrations\" />
-		<Folder Include="Sample\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using DTO;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -38,6 +39,66 @@ namespace VideoProcessingTools
             else return null;
         }
 
+        public static FileInfoDto GenerateHls264(string fileToProcess)
+        {
+            string sampleFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sample", "4K-video-30-secs.mp4");
+            if (fileToProcess.Length == 0) fileToProcess = sampleFile;
+            string ffmpeg = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"ffmpeg.exe");
+
+            if (!Directory.Exists(thumbDir))
+                Directory.CreateDirectory(thumbDir);
+
+            string ffmpegOutFile = Path.Combine(thumbDir, $"HLS-264.avi");
+            string ffmpegArguments = $"-i {fileToProcess} -s 1920x1200 -framerate 60 -c:v libx264 -preset medium {ffmpegOutFile}";
+            var process = VideoExternalProcess(ffmpeg, ffmpegArguments);
+            if (File.Exists(ffmpegOutFile))
+                return new FileInfoDto
+                {
+                    FilePath = ffmpegOutFile
+                };
+            else return null;
+        }
+
+        public static List<FileInfoDto> MultibitHls(string fileToProcess)
+        {
+            var ret = new List<FileInfoDto>();
+            string sampleFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Sample", "4K-video-30-secs.mp4");
+            if (fileToProcess.Length == 0) fileToProcess = sampleFile;
+            string ffmpeg = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"ffmpeg.exe");
+
+            if (!Directory.Exists(thumbDir))
+                Directory.CreateDirectory(thumbDir);
+
+            string ffmpegOutFile = Path.Combine(thumbDir, $"output.m3u8");
+            string ffmpegArguments = $"-i {fileToProcess} -hls_time 10 {ffmpegOutFile}";
+            var process = VideoExternalProcess(ffmpeg, ffmpegArguments);
+
+            if (File.Exists(ffmpegOutFile))
+            {
+                ret.Add(new FileInfoDto { 
+                    Id = -1,
+                    FileName = Path.GetFileName(ffmpegOutFile),
+                    FilePath = ffmpegOutFile
+                });
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(ffmpegOutFile);
+                string filePathCheck;
+                for (int i = 0; i < 1000; i++)
+                {
+                    filePathCheck = Path.Combine(thumbDir, $"output{i}.ts");
+                    if (File.Exists(filePathCheck))
+                        ret.Add(new FileInfoDto
+                        {
+                            Id = 0,
+                            FileName = Path.GetFileName(filePathCheck),
+                            FilePath = filePathCheck
+                        });
+                }
+
+                return ret;
+            }
+            else return null;
+        }
+
         private static bool VideoExternalProcess(string cmd, string args)
         {
             try
@@ -57,7 +118,7 @@ namespace VideoProcessingTools
                     process.Start();
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
-                    Console.WriteLine($"Process exit #{process.WaitForExit(5000)}");
+                    Console.WriteLine($"Process exit #{process.WaitForExit(60000)}");
                     return true;
                 }
             }

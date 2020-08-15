@@ -31,11 +31,14 @@ namespace api.Controllers
         }
 
         [HttpPost("hd-264")]
-        public IActionResult HdFile([FromBody] string content)
+        public async Task<IActionResult> HdFile([FromBody] string content)
         {
             try
             {
-                return Ok("hd-264");
+                if (content.Length == 0)
+                    content = string.Empty;
+                var ret = await _videoService.CreateHls264(content);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
@@ -51,7 +54,7 @@ namespace api.Controllers
             {
                 if (content.Length == 0)
                     content = string.Empty;
-                var ret = await _videoService.Create(content);
+                var ret = await _videoService.CreateThumbnails(content);
                 return Ok(ret);
             }
             catch (Exception ex)
@@ -65,7 +68,10 @@ namespace api.Controllers
         {
             try
             {
-                return Ok("hls-files");
+                if (content.Length == 0)
+                    content = string.Empty;
+                var ret = await _videoService.CreateMultibitRate(content);
+                return Ok(ret);
             }
             catch (Exception ex)
             {
