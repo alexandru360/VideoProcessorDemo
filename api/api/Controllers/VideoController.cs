@@ -31,14 +31,15 @@ namespace api.Controllers
         }
 
         [HttpPost("hd-264")]
-        public async Task<IActionResult> HdFile([FromBody] string content)
+        public async Task<IActionResult> HdFile()
         {
             try
             {
-                if (content.Length == 0)
-                    content = string.Empty;
-                var ret = await _videoService.CreateHls264(content);
-                return Ok(ret);
+                var ret = await _videoService.CreateHls264(string.Empty);
+                return Ok(new MessageDto
+                {
+                    Content = ret
+                }); ;
             }
             catch (Exception ex)
             {
@@ -48,13 +49,11 @@ namespace api.Controllers
 
         [HttpPost("thumbnails")]
         [AllowAnonymous]
-        public async Task<IActionResult> Thumbnails([FromBody] string content)
+        public async Task<IActionResult> Thumbnails()
         {
             try
             {
-                if (content.Length == 0)
-                    content = string.Empty;
-                var ret = await _videoService.CreateThumbnails(content);
+                var ret = await _videoService.CreateThumbnails(string.Empty);
                 return Ok(ret);
             }
             catch (Exception ex)
@@ -64,14 +63,15 @@ namespace api.Controllers
         }
 
         [HttpPost("hls-files")]
-        public async Task<IActionResult> HlsFiles([FromBody] string content)
+        public async Task<IActionResult> HlsFiles()
         {
             try
             {
-                if (content.Length == 0)
-                    content = string.Empty;
-                var ret = await _videoService.CreateMultibitRate(content);
-                return Ok(ret);
+                var ret = await _videoService.CreateMultibitRate(string.Empty);
+                return Ok(new MessageDto
+                {
+                    Content = ret
+                }); ;
             }
             catch (Exception ex)
             {
