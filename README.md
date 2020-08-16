@@ -22,8 +22,3 @@ cd into view
 yarn
 ng serve
 ````
-
-###### To Do
-* Maybe integrate with Angular Material
-* Do an upload control for 4K Videos instead of processing the single one from sample folder
-* Investigate the ffmpeg.exe capabilities.
