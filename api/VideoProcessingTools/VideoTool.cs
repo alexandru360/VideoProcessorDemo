@@ -10,7 +10,7 @@ namespace VideoProcessingTools
 {
     public static class VideoTool
     {
-        const string thumbDir = @"C:\temp";
+        public const string thumbDir = @"C:\temp";
 
         public static ThumbnailPathsDto GenerateThumbnails(string fileToProcess)
         {
@@ -75,7 +75,8 @@ namespace VideoProcessingTools
 
             if (File.Exists(ffmpegOutFile))
             {
-                ret.Add(new FileInfoDto { 
+                ret.Add(new FileInfoDto
+                {
                     Id = -1,
                     FileName = Path.GetFileName(ffmpegOutFile),
                     FilePath = ffmpegOutFile
@@ -144,6 +145,28 @@ namespace VideoProcessingTools
             }
 
             return ret;
+        }
+
+        public static bool DeleteFilesFoldersFromDir(string dirPathAndName)
+        {
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(dirPathAndName);
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo dir in di.GetDirectories())
+                {
+                    dir.Delete(true);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

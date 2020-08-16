@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ThumbnailDisplayComponent} from './thumbnail/thumbnail-display/thumbnail-display.component';
+import {ThumbnailDisplayComponent} from './thumbnail-display/thumbnail-display.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/thumbnail', pathMatch: 'full' },
-  { path: 'thumbnail', component: ThumbnailDisplayComponent }
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'thumbnail', component: ThumbnailDisplayComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,61 @@
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.div-img-container-layout{
+  display: flex;
+  flex-direction: row;
+}
+
+.div-img-wrapper{
+  width: 100%;
+  height: 300px;
+  border-color: cadetblue;
+  border-style: solid;
+  border-width: 1px;
+  position: relative;
+  margin: 10px;
+}
+
+.div-img-loading {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  /* Center vertically and horizontally */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
+}
+
+.img-layout{
+  width: 100%;
+  height: 100%;
+}
+

@@ -99,6 +99,7 @@ namespace api.Services
             thumb.Id = thumbnail.Id;
             oRet.Add(thumb);
 
+            VideoTool.DeleteFilesFoldersFromDir(VideoTool.thumbDir);
             return oRet;
         }
 
@@ -125,7 +126,8 @@ namespace api.Services
             _context.Hls264.Add(hls264);
             _context.SaveChanges();
 
-            return $"Theere was a file entry in the Table Hls264 with ID# {hls264.Id}";
+            VideoTool.DeleteFilesFoldersFromDir(VideoTool.thumbDir);
+            return $"Theere is a file entry in the Table Hls264 with ID# {hls264.Id}";
         }
 
         public async Task<string> CreateMultibitRate(string urlFile)
@@ -161,6 +163,7 @@ namespace api.Services
                 ret.Add(mbitHls.Id.ToString());
             }
 
+            VideoTool.DeleteFilesFoldersFromDir(VideoTool.thumbDir);
             return $"Theere were several recod entries in the Table MultibitHls with IDs# {string.Join(",", ret)}";
         }
     }

@@ -1,0 +1,88 @@
+<div class="grid-container">
+  <!--  <h1 class="mat-h1">Dashboard</h1>-->
+  <mat-grid-list cols="2" rowHeight="250px">
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            About the program
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div style="text-align: left">
+            <p>The program does 3 things:</p>
+            <ol>
+              <li>HD H264 file</li>
+              <li>Thumbnail from the first and third second of the 4k file</li>
+              <li>Multibit rate HLS files</li>
+            </ol>
+            <p>The file is hardcoded on the api (found in directory Samples of Api) for now but logic is implemented
+              (80%) for use of
+              url-s to be sent to the server to process videos from those url-s.</p>
+            <p>For now we'll use the hard coded one.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            HD H264 file
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <button mat-raised-button color="primary" (click)="onClickLoadH264()">Api call</button>
+          <br/><br/>
+          <mat-divider></mat-divider>
+          <br/><br/>
+          <div>Response:&nbsp;{{H264Response}}</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Display thumbnails
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <button mat-raised-button color="primary" (click)="onClickLoadImg()">Api call</button>
+          <div>
+            <div class="div-img-loading" *ngIf="showLoadingImg">
+              <img alt="thumbnail" src="../../assets/200.gif" class="img-layout"/>
+            </div>
+            <div class="div-img-container-layout" *ngIf="showThumbImg">
+              <div class="div-img-wrapper" *ngFor="let itm of thumbImages">
+                <div class="div-img-loading" *ngIf="showLoadingImg">
+                  <img alt="thumbnail" src="../../assets/200.gif" class="img-layout"/>
+                </div>
+                <img alt="thumbnail" [src]="itm.Url" class="img-layout" *ngIf="showThumbImg"/>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Multibit rate HLS files
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <button mat-raised-button color="primary" (click)="onClickLoadMultiHls()">Api call</button>
+          <br/><br/>
+          <mat-divider></mat-divider>
+          <br/><br/>
+          <div>Response:&nbsp;{{MultiHlsResponse}}</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
